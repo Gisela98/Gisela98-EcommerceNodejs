@@ -27,21 +27,6 @@ async function signIn(req, res, next){
   }
 }
 
-async function changePassword(req, res){
-  try {
-    const {email, oldPassword, newPassword} = req.body;
-    const getPassAuth = await AuthService.changePassword({
-      email, 
-      oldPassword, 
-      newPassword
-    }, req.headers['authorization'])
-
-    res.json(getPassAuth)
-  } catch (error) {
-    res.json(error.message)
-  }
-}
-
 async function forgotPassword(req, res) {
   try {
     const {email} = req.body;
@@ -54,8 +39,8 @@ async function forgotPassword(req, res) {
 
 async function newPassword(req, res) {
   try {
-    const { newPassword } = req.body;
-    const newPass = await AuthService.newPassword(newPassword, req.headers['authorization'])
+    const { newPassword, token } = req.body;
+    const newPass = await AuthService.newPassword(newPassword, token);
     res.json(newPass)
   } catch (error) {
     res.json(error.message)
@@ -74,7 +59,6 @@ async function getUserAuth(req, res){
 
 module.exports = {
   signIn,
-  changePassword,
   forgotPassword,
   newPassword,
   getUserAuth,

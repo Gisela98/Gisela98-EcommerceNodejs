@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const { Op } = require("sequelize");
-const User = require('./model');
+const { User } = require('./model');
 const UserValidation = require('./validation');
 const Pagination = require('../../middlewares/pagination');
 const {TemplateSign} = require('../../resources/getTemplate');

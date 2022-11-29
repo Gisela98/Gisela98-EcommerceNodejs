@@ -22,7 +22,7 @@ const router = Router();
   *              401:
   *                  description: user exists
   */
-  router.post('/signIn', AuthComponent.signIn)
+  router.post('/signIn', AuthComponent.signIn);
 
    /**
   * @swagger
@@ -43,7 +43,7 @@ const router = Router();
   *              401:
   *                  description: user exists
   */
-    router.post('/signUp', AuthComponent.signUp)
+    router.post('/signUp', AuthComponent.signUp);
 
  /**
   * @swagger
@@ -62,29 +62,10 @@ const router = Router();
 
  /**
   * @swagger
-  *  /v1/auth/changePassword:
-  *      post:
-  *          summary: change password users
-  *          tags: ["Auths"]
-  *          requestBody:
-  *              required: true
-  *              content:
-  *                  application/json:
-  *                      schema:
-  *                          $ref: '#/components/schemas/changePass'
-  *          responses:
-  *              200:
-  *                  description: change password succesfully
-  *              401:
-  *                  description: user exists
-  */
-  router.post('/changePassword', AuthComponent.changePassword)
-
- /**
-  * @swagger
   *  /v1/auth/forgotPassword:
   *      post:
   *          summary: forgot password users
+  *          security: [] # No security
   *          tags: ["Auths"]
   *          requestBody:
   *              required: true
@@ -105,6 +86,7 @@ const router = Router();
   *  /v1/auth/newPassword:
   *      post:
   *          summary: new password users
+  *          security: [] # No security
   *          tags: ["Auths"]
   *          requestBody:
   *              required: true
@@ -164,22 +146,6 @@ const router = Router();
   *          example:
   *              email: admin1@mail.com
   *              password: Admin1
-  *      changePass:
-  *          type: object
-  *          required:
-  *              -email
-  *              -oldPassword
-  *              -newPassword
-  *          properties:
-  *              oldPassword:
-  *                  type: string
-  *              newPassword:
-  *                  type: string
-  *              email:
-  *                  type: string
-  *          example:
-  *              email: admin1@mail.com
-  *              password: Admin1
   *      forgotPass:
   *          type: object
   *          required:
@@ -193,11 +159,15 @@ const router = Router();
   *          type: object
   *          required:
   *              -newPassword
+  *              -token
   *          properties:
   *              newPassword:
   *                  type: string
+  *              token:
+  *                  type: string
   *          example:
   *              newPassword: pass1234
+  *              token: mytokensalsk
   *      Error:    
   *          type: object
   *          required:

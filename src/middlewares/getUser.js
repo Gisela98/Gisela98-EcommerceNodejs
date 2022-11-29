@@ -1,7 +1,7 @@
 const permissions = require('../resources/user-types');
 const config = require('../config/env');
 const jwt = require('jsonwebtoken');
-const User = require('../modules/user/model');
+const { User } = require('../modules/user/model');
 
 async function getUser(bearerHeader){
   const bearer = bearerHeader.split(' ');

@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const jsonwebtoken = require('jsonwebtoken');
 
 const AuthValidation = require('./validation');
-const User = require('../user/model');
+const { User } = require('../user/model');
 const getUser = require('../../middlewares/getUser');
 const sendMail = require('../../resources/send-mail');
 const {TemplateSign} = require('../../resources/getTemplate');
@@ -97,33 +97,6 @@ const AuthService = {
     }
   },
 
-  async changePassword(body, bearerHeader){
-    try {
-      const user = await getUser(bearerHeader);
-      const comparePass = bcrypt.compareSync(body.oldPassword,user.password);
-      console.log(comparePass);
-      if(body.email !== user.email || !comparePass){
-        return {
-          message: 'credenciales incorrectas...',
-          status: 401
-        }
-      }
-
-      const changePassword = await User.update({
-        password: bcrypt.hashSync(body.newPassword, 10),
-      }, {
-        where: {
-          id: user.id
-        }
-      })
-
-      return changePassword;
-      
-    } catch (error) {
-      throw new Error(error.message)
-    }
-  },
-
   async forgotPassword(email){
     try {
 
@@ -138,25 +111,17 @@ const AuthService = {
       }
 
       const dataToken = {
-        id : user.id,
-        isAdmin : user.isAdmin,
-        isActive : user.isActive,
-        typeUser: user.typeUser,
+        id : user.id
       }
 
-      const token = jsonwebtoken.sign({dataToken}, config.JWT_SECRET);
-      const url = `${config.URL_FORGOT_PASS}/newPassword/${token}`
-
-      // SEND EMAIL WITH LINK
-
-      let contactLink = config.CONTACT_LINK;
+      const token = jsonwebtoken.sign({dataToken}, config.JWT_PASS_SECRET);
 
       const emailFrom = config.MAIL_USER;
       const emailTo = user.email;
       const subject = 'recuperación contraseña'
-      const textPrincipal = `Para recuperar tu contraseña ingresa al siguiente link`
-      const html = TemplateSign(textPrincipal, user.username, url, contactLink)
-      await sendMail('syscomp', emailFrom, emailTo, subject,html)
+      const textPrincipal = `Tu token para cambio de contraseña es: ${token}`
+      
+      await sendMail('syscomp', emailFrom, emailTo, subject, textPrincipal)
 
       return message;
       
@@ -167,16 +132,22 @@ const AuthService = {
 
   async newPassword(newPassword, bearerHeader){
     try {
-      const user = await getUser(bearerHeader);
+      const validateToken = jsonwebtoken.decode(bearerHeader, config.JWT_PASS_SECRET);
+      console.log("🚀 ~ file: service.js ~ line 136 ~ newPassword ~ validateToken", validateToken)
       
-      let newpass = bcrypt.hashSync(newPassword, 10)
-      const changePassword = await User.update({
-        password: newpass,
-      }, {
-        where: {id: user.dataValues.id}
-      })
-
-      return changePassword;
+      if (validateToken) {
+        let newpass = bcrypt.hashSync(newPassword, 10);
+  
+        const changePassword = await User.update({
+          password: newpass,
+        }, {
+          where: {id: validateToken.id}
+        })
+  
+        return changePassword;
+      } else {
+        return 'token no valid'
+      }
       
     } catch (error) {
       throw new Error(error.message)

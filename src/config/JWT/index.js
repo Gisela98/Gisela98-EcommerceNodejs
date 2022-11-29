@@ -12,7 +12,8 @@ const expressJWT = jwt({
     path: [ 
         '/v1/auth/signUp',
         '/v1/auth/signIn',
-        '/v1/sockets',
+        '/v1/auth/forgotPassword',
+        '/v1/auth/newPassword',
         '/favicon.ico',
         '/socket.io/socket.io.js',
         '/'
