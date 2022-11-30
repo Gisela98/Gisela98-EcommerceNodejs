@@ -100,7 +100,28 @@ const router = Router();
   *              401:
   *                  description: user exists
   */
-  router.post('/newPassword', AuthComponent.newPassword)
+  router.post('/newPassword', AuthComponent.newPassword);
+
+   /**
+  * @swagger
+  *  /v1/auth/update:
+  *      put:
+  *          summary: put user in the DB
+  *          tags: ["Auths"]
+  *          requestBody:
+  *              required: true
+  *              content:
+  *                  application/json:
+  *                      schema:
+  *                           $ref: '#/components/schemas/Auth'
+  *          responses:
+  *              200:
+  *                  description: update user successfully
+  *              401:
+  *                  description: user not authorized to update users
+  */
+ 
+ router.put('/update', AuthComponent.updateUser);
 
 
  /**
@@ -113,26 +134,22 @@ const router = Router();
   *      Auth:
   *          type: object
   *          required:
-  *              -name
+  *              -email
+  *              -username
+  *              -password
   *          properties:
   *              id:
   *                  type: string
   *              username:
   *                  type: string
-  *              firstName:
-  *                  type: string
   *              password:
-  *                  type: string
-  *              lastName:
   *                  type: string
   *              email:
   *                  type: string
   *          example:
   *              email: admin1@mail.com
   *              username: testAuth
-  *              firstName: test
   *              password: Admin1
-  *              lastName: auth
   *      login:
   *          type: object
   *          required:

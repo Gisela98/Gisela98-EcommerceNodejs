@@ -57,10 +57,21 @@ async function getUserAuth(req, res){
   }
 }
 
+async function updateUser(req, res){
+  try {
+    const userLog = await AuthService.updateUser(req.headers['authorization'], req.body) 
+
+    res.json(userLog)
+  } catch(error) {
+    throw new Error(error.message)
+  }
+}
+
 module.exports = {
   signIn,
   forgotPassword,
   newPassword,
   getUserAuth,
+  updateUser,
   signUp
 }

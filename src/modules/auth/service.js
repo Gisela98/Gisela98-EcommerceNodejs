@@ -141,7 +141,7 @@ const AuthService = {
         const changePassword = await User.update({
           password: newpass,
         }, {
-          where: {id: validateToken.id}
+          where: {id: validateToken.dataToken.id}
         })
   
         return changePassword;
@@ -164,7 +164,26 @@ const AuthService = {
     } catch (error) {
       throw new Error(error.message)
     }
-  }
+  },
+
+  async updateUser(bearerHeader, body) {    
+    const validateBody = AuthValidation.updateAuth(body)
+    if (validateBody.error) {
+      throw new Error(validateBody.error)
+    }
+
+    const user = await getUser(bearerHeader);
+    const newUser = await User.update(
+      {
+        username: body.username,
+        email:body.email,
+        updatedBy: user.id
+      },
+      {where: {id: user.id}}
+    )
+
+    return newUser;
+  },
 }
 
 module.exports = AuthService;

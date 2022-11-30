@@ -1,5 +1,9 @@
-const { DataTypes, Model, UUIDV4} = require('sequelize');
+const { DataTypes, UUIDV4} = require('sequelize');
 const db = require('../../config/connection/connectBD');
+const { Product } = require('../product/model');
+const { Cart } = require('../cart/model');
+const { Order } = require('../order/model');
+
 sequelize = db.sequelize;
 
 const User = sequelize.define('User', {
@@ -26,7 +30,17 @@ const User = sequelize.define('User', {
 },{
   tableName: "users",
   timestamps: true
-})
+});
+/**
+ * User Associations 
+ */
+User.hasMany(Product);
+Product.belongsTo(User);
 
+User.hasOne(Cart);
+Cart.belongsTo(User);
+
+User.hasMany(Order);
+Order.belongsTo(User);
 
 module.exports = { User };
