@@ -4,23 +4,20 @@ const { User } = require('../user/model');
 
 const sequelize = db.sequelize;
 
-const Product = sequelize.define('Product', {
+const Order = sequelize.define('Order', {
 	id: {
     type: DataTypes.STRING,
     defaultValue: UUIDV4,
     primaryKey: true,
     allowNull: false,
   },
-	name: {
-		type: DataTypes.STRING,
-		allowNull: false
-	},
-	price: {
+	totalPrice: {
 		type: DataTypes.FLOAT,
 		allowNull: false
 	},
-	availabilityQty: {
-		type: DataTypes.STRING,
+	status: {
+		type: DataTypes.BOOLEAN,
+		defaultValue: false,
 	},
 	userId: {
 		type: DataTypes.STRING,
@@ -31,10 +28,10 @@ const Product = sequelize.define('Product', {
 		}
 	},
 }, {
-	tableName: 'products',
+	tableName: 'orders',
 	timestamps: true
-});
+})
 
 module.exports = {
-	Product
+	Order
 }
