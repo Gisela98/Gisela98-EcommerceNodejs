@@ -5,7 +5,7 @@ const swaggerOptions = {
     definition: {
         openapi: '3.0.0',
         info: {
-            title: 'Pos Api',
+            title: 'Magnificent Ecommerce',
             version: '1.0.0',
         },
         servers: [
