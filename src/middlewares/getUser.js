@@ -1,4 +1,3 @@
-const permissions = require('../resources/user-types');
 const config = require('../config/env');
 const jwt = require('jsonwebtoken');
 const { User } = require('../modules/user/model');

@@ -50,8 +50,8 @@ const ProductInCart = sequelize.define('ProductInCart', {
  * ProductInCart Associations
  */
 
-ProductInCart.hasOne(Product);
-Product.belongsTo(ProductInCart);
+Product.hasMany(ProductInCart);
+ProductInCart.belongsTo(Product);
 
 module.exports = {
 	ProductInCart

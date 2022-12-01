@@ -20,8 +20,8 @@ module.exports = {
         type: Sequelize.DataTypes.FLOAT,
         allowNull: false
       },
-      availablaQty: {
-        type: Sequelize.DataTypes.STRING,
+      availabilityQty: {
+        type: Sequelize.DataTypes.INTEGER,
       },
       userId: {
         type: Sequelize.DataTypes.STRING,

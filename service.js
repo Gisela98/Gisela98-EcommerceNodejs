@@ -1,22 +1,12 @@
-const { Op } = require('sequelize');
-
-const getUser = require("../../middlewares/getUser");
-const { User } = require('../user/model');
-const { Product } = require("./model");
-const productValidation = require('./validation');
+const getUser = require("./src/middlewares/getUser");
+const { Product } = require("./src/modules/product/model");
+const productValidation = require('./src/modules/product/validation');
 
 
 const ProductService = {
 
 	async getProducts() {
-		const products = await Product.findAll({
-			where: {
-				availabilityQty: {
-					[Op.gt]: 0
-				}
-			},
-			include: [User]
-		})
+		const products = await Product.findAll()
 
 		return products;
 	},
