@@ -11,31 +11,15 @@ module.exports = {
         primaryKey: true,
         allowNull: false,
       },
-      price: {
+      totalPrice: {
         type: Sequelize.DataTypes.FLOAT,
         allowNull: false
       },
-      quantity: {
-        type: Sequelize.DataTypes.INTEGER,
-        defaultValue: 1,
-      },
-      status: {
-        type: Sequelize.DataTypes.INTEGER,
-        defaultValue: 0,
-      },
-      cartId: {
+      userId: {
         type: Sequelize.DataTypes.STRING,
         allowNull: false,
         references: {
-          model: 'carts',
-          key: 'id',
-        }
-      },
-      productId: {
-        type: Sequelize.DataTypes.STRING,
-        allowNull: false,
-        references: {
-          model: 'products',
+          model: 'users',
           key: 'id',
         }
       },

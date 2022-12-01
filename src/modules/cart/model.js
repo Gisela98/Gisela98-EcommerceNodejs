@@ -1,7 +1,8 @@
 const { DataTypes, UUIDV4} = require('sequelize');
 const db = require('../../config/connection/connectBD');
+const { Product } = require('../product/model');
 const { User } = require('../user/model');
-const { ProductInCart } = require('../product-in-cart/model');
+const { ProductInCart } = require('./product-in-cart.model');
 sequelize = db.sequelize;
 
 const Cart = sequelize.define('Cart', {

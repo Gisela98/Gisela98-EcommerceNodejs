@@ -1,12 +1,12 @@
 const { DataTypes, UUIDV4 } = require('sequelize');
 const db = require("../../config/connection/connectBD");
+const { Order } = require('./model');
 const { Product } = require('../product/model');
-const { Cart } = require('../cart/model');
 
 
 const sequelize = db.sequelize;
 
-const ProductInCart = sequelize.define('ProductInCart', {
+const ProductInOrder = sequelize.define('ProductInOrder', {
 	id: {
     type: DataTypes.STRING,
     defaultValue: UUIDV4,
@@ -25,11 +25,11 @@ const ProductInCart = sequelize.define('ProductInCart', {
 		type: DataTypes.INTEGER,
 		defaultValue: 0,
 	},
-	cartId: {
+	orderId: {
 		type: DataTypes.STRING,
 		allowNull: false,
 		references: {
-			model: Cart,
+			model: Order,
 			key: 'id',
 		}
 	},
@@ -42,17 +42,16 @@ const ProductInCart = sequelize.define('ProductInCart', {
 		}
 	},
 }, {
-	tableName: 'products_in_cart',
+	tableName: 'products_in_orders',
 	timestamps: true
 });
 
-/**
- * ProductInCart Associations
- */
+Product.hasMany(ProductInOrder);
+ProductInOrder.belongsTo(Product);
 
-Product.hasMany(ProductInCart);
-ProductInCart.belongsTo(Product);
+Order.hasMany(ProductInOrder);
+ProductInOrder.belongsTo(Order);
 
 module.exports = {
-	ProductInCart
+	ProductInOrder
 }
