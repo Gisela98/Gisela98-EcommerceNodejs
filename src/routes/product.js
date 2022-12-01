@@ -28,7 +28,7 @@ const router = Router();
   * @swagger
   *  /v1/products:
   *      post:
-  *          summary: sign up users
+  *          summary: create products
   *          tags: ["Products"]
   *          requestBody:
   *              required: true
