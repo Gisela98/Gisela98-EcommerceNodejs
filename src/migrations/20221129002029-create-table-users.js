@@ -1,6 +1,6 @@
 'use strict';
-
 const { DataTypes, UUIDV4} = require("sequelize");
+const bcrypt = require('bcrypt');
 
 module.exports = {
   async up (queryInterface, Sequelize) {
@@ -34,6 +34,15 @@ module.exports = {
         defaultValue: new Date(),
       },
     });
+
+    await queryInterface.bulkInsert('users', [
+      {
+        "id": "user-1",
+        "email": "admin1@mail.com",
+        "username": "testAuth",
+        "password": bcrypt.hashSync('Admin1', 10),
+      }
+    ])
   },
 
   async down (queryInterface, Sequelize) {

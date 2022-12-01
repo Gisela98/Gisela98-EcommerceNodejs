@@ -5,6 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon src/index.js",
+    "test": "jest",
+    "start": "node src/index.js",
     "generate": "node ./generator/generate.js",
     "migrate": "npx sequelize db:migrate",
     "desmigrate": "npx sequelize db:migrate:undo:all",
@@ -29,5 +31,8 @@
     "sequelize-cli": "^6.4.1",
     "swagger-jsdoc": "^6.2.1",
     "swagger-ui-express": "^4.4.0"
+  },
+  "devDependencies": {
+    "jest": "^29.3.1"
   }
 }
