@@ -12,7 +12,9 @@ async function getAll(req, res, next) {
 
 async function create(req, res, next){
   try {
-    const getAuth = await ProductService.createProduct(req.headers['authorization'], req.body);
+    const file = req.files;
+
+    const getAuth = await ProductService.createProduct(req.headers['authorization'], req.body, file);
     res.status(201).json(getAuth)
   
   } catch (error) {

@@ -13,7 +13,13 @@ const Routes = require('../../routes')
 const app = express();
 
 app.use(express.json());
-app.use(cors())
+app.use(cors({
+	origin: [
+		'http://localhost:3000',
+		'https://gisela98-ecommercenodejs-production.up.railway.app'
+	],
+	credentials: true
+}))
 
 const swaggerSpecs = swaggerJsDoc(swaggerDoc);
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerSpecs));

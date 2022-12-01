@@ -16,8 +16,6 @@ const development = {
     MAIL_HOST: process.env.MAIL_HOST,
     MAIL_PASS: process.env.MAIL_PASS,
     MAIL_USER: process.env.MAIL_USER,
-    URL_FORGOT_PASS: process.env.URL_FORGOT_PASS,
-    CONTACT_LINK: process.env.CONTACT_LINK,
 }
 
 module.exports = development;
