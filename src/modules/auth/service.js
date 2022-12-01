@@ -5,7 +5,6 @@ const AuthValidation = require('./validation');
 const { User } = require('../user/model');
 const getUser = require('../../middlewares/getUser');
 const sendMail = require('../../resources/send-mail');
-const {TemplateSign} = require('../../resources/getTemplate');
 const db = require('../../config/connection/connectBD');
 const config = require('../../config/env');
 
