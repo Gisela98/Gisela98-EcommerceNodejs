@@ -1,4 +1,5 @@
 const getUser = require('../../middlewares/getUser');
+const { Cart } = require('../cart/model');
 const { ProductInCart } = require('../cart/product-in-cart.model');
 const { Product } = require('../product/model');
 const { Order } = require('./model');
@@ -41,8 +42,20 @@ const OrderService = {
 				productId: productOrder[i].productId
 			})
 
+			await productOrder[i].update({
+				status: true
+			})
+
 			await order.update({
 				totalPrice: order.totalPrice + productOrder[i].price
+			})
+
+			await Cart.update({
+				status: true
+			}, {
+				where: {
+					id: cartId
+				}
 			})
 		}
 
@@ -67,6 +80,14 @@ const OrderService = {
 		}, {
 			where: {
 				id: orderId
+			}
+		})
+
+		await ProductInOrder.update({
+			status: true,
+		}, {
+			where: {
+				orderId
 			}
 		})
 	

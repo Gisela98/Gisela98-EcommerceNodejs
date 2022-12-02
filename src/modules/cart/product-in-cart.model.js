@@ -22,8 +22,8 @@ const ProductInCart = sequelize.define('ProductInCart', {
 		defaultValue: 1,
 	},
 	status: {
-		type: DataTypes.INTEGER,
-		defaultValue: 0,
+		type: DataTypes.BOOLEAN,
+		defaultValue: false,
 	},
 	cartId: {
 		type: DataTypes.STRING,

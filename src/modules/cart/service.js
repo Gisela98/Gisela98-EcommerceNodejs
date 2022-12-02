@@ -12,7 +12,8 @@ const CartService = {
 
 		const carts = await Cart.findAll({
 			where: {
-				userId: user.id
+				userId: user.id,
+				status: false
 			}
 		})
 
@@ -30,9 +31,10 @@ const CartService = {
 		if(product.quantity < body.quantity) throw new Error('no hay disponible este numero de productos')
 		
 		product.update({
-			quantity: product.quantity - body.quantity,
+			availabilityQty: product.availabilityQty - body.quantity,
 		});
 		
+		product.save()
 		if (!product) throw new Error('Product', body.productId, 'not found');
 
 		body.price = product.price * body.quantity;

@@ -23,6 +23,10 @@ module.exports = {
           key: 'id',
         }
       },
+      status: {
+        type: Sequelize.DataTypes.BOOLEAN,
+        defaultValue: false
+      },
       createdAt: {
         type: Sequelize.Sequelize.DataTypes.STRING,
         defaultValue: new Date(),

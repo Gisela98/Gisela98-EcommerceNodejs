@@ -22,8 +22,8 @@ const ProductInOrder = sequelize.define('ProductInOrder', {
 		defaultValue: 1,
 	},
 	status: {
-		type: DataTypes.INTEGER,
-		defaultValue: 0,
+		type: DataTypes.BOOLEAN,
+		defaultValue: false,
 	},
 	orderId: {
 		type: DataTypes.STRING,

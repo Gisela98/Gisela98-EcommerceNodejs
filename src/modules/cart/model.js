@@ -23,7 +23,11 @@ const Cart = sequelize.define('Cart', {
 			model: User,
 			key: 'id',
 		}
-	}
+	},
+	status: {
+		type: DataTypes.BOOLEAN,
+		defaultValue: false,
+	},
 }, {
 	tableName: 'carts',
 	timestamps: true

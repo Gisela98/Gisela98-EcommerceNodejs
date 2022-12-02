@@ -20,8 +20,8 @@ module.exports = {
         defaultValue: 1,
       },
       status: {
-        type: Sequelize.DataTypes.INTEGER,
-        defaultValue: 0,
+        type: Sequelize.DataTypes.BOOLEAN,
+        defaultValue: false,
       },
       cartId: {
         type: Sequelize.DataTypes.STRING,
