@@ -3,6 +3,7 @@ const { Product } = require('../product/model');
 const { Cart } = require('./model');
 const { ProductInCart } = require('./product-in-cart.model');
 const cartValidation = require('./validation');
+const {Op} = require('sequelize');
 
 const CartService = {
 
@@ -12,8 +13,10 @@ const CartService = {
 
 		const carts = await Cart.findAll({
 			where: {
-				userId: user.id,
-				status: false
+				[Op.and]: {
+					userId: user.id,
+					status: false
+				}
 			}
 		})
 
